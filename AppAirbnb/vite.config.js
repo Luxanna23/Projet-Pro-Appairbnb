@@ -22,4 +22,7 @@ export default defineConfig({
             '@/img': '/resources/img',
         },
     },
+    optimizeDeps: {
+        include: ['swiper', 'swiper/vue'],
+      },
 });

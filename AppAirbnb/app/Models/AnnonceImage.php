@@ -14,4 +14,12 @@ class AnnonceImage extends Model
         'path',
         'annonce_id',
     ];
+
+    /**
+     * Relation des images avec l'annonce 
+     */
+    public function annonce()
+    {
+        return $this->belongsTo(Annonce::class, 'annonce_id', 'id');
+    }
 }

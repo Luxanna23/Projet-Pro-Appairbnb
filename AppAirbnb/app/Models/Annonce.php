@@ -14,7 +14,23 @@ class Annonce extends Model
         'description',
         'address',
         'price_per_night',
-        'calendrier_id',
         'user_id',
     ];
+
+    /**
+     * Relation avec les images de l'annonce
+     */
+    public function images()
+    {
+        return $this->hasMany(AnnonceImage::class, 'annonce_id', 'id');
+    }
+
+    // pour que je stock l'image dans le storage
+    public static function storeImage($file)
+    {
+        // faut faire une verif pour voir si le fichier est bien une image avant de stocker
+        $path = $file->store('public/AnnonceImage');
+        return $path;
+    }
+
 }

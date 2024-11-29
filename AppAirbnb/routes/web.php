@@ -16,6 +16,7 @@ use Inertia\Inertia;
 
 Route::get('/', [AnnonceController::class, 'index'])->name('annonces.index');
 Route::get('/annonces/{annonce}', [AnnonceController::class, 'show'])->name('annonces.show');
+Route::get('/annonces/create', [AnnonceController::class, 'create'])->name('annonces.create');
 
 Route::middleware([
     'auth:sanctum',
