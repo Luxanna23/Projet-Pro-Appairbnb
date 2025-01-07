@@ -1,18 +1,33 @@
 <?php
 
+use App\Http\Controllers\AnnonceController;
+// use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [AnnonceController::class, 'index'])->name('annonces.index');
+Route::get('/annonces/{annonce}', [AnnonceController::class, 'show'])->name('annonces.show');
+Route::get('/annonces/create', [AnnonceController::class, 'create'])->name('annonces.create');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    ])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    Route::resource('annonces', AnnonceController::class)->except([
+        'index', 'show',
+    ]);
 });

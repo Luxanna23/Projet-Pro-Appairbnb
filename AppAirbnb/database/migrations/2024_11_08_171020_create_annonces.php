@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Reservations', function ( Blueprint $table ){
-            $table->increments('id');
-            $table->date('date_debut')->nullable();
-            $table->date('date_fin')->nullable();
+        Schema::create('annonces', function (Blueprint $table) {
+            $table->id('id');
+            $table->string('title');
+            $table->string('description');
+            $table->string('address');
+            $table->float('price_per_night');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::drop('Calendrier');
+        Schema::drop('Annonces');
     }
 };
